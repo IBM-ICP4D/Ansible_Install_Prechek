@@ -1,0 +1,15 @@
+## Checking existing Cronjobs
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: Populate Variable via Shell Command
+    shell: crontab -l | grep -E "*"
+    register: cron
+    ignore_errors: True
+
+  - name: Crontab Check
+    shell: echo "WARNING Found cronjob set up in background. Please make sure cronjob will not change ip route, hosts file or firewall setting during installation"
+    register: output
+    failed_when: cron < 1

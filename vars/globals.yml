@@ -1,0 +1,24 @@
+---
+
+sudo: yes
+docker_disk: <your docker disk /dev/xvdc>
+docker_storage: /var/lib/docker
+gluster_disk: <your gluster disk /dev/xvde>
+time_server: servertime.service.softlayer.com
+#time_server: <your time server. example, servertime.service.softlayer.com>
+master1_ip: <your master ip>
+yum_repository_server: <your registry server>
+
+
+#OSE YUM Repository
+yum_ose_dest: /etc/yum.repos.d/ose.repo
+yum_ose_src: ../utils/ose.repo"
+
+
+##RedHat Subscription
+redhat_username: <username>
+redhat_password: <password>
+redhat_pool_ids: <pool-id>
+
+##System Requirement
+root_size: 50

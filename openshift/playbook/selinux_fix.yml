@@ -1,0 +1,24 @@
+## Fix SELinux Setting
+---
+- hosts: all
+
+  become: yes
+
+  tasks:
+  - name: Create autorelable file
+    shell: touch /.autorelabel
+
+  - name: Populate current value
+    command: getenforce
+    register: current_selinux
+    ignore_errors: True
+
+  - name: Change Selinux state to enforcing mode
+    selinux:
+       policy: targeted
+       state: enforcing
+    when: '"Enforcing" not in current_selinux.stdout'
+
+  - debug:
+      msg: "Please reboot the machine for selinux mode change to be effective"
+    when: '"Enforcing" not in current_selinux.stdout'

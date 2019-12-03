@@ -1,0 +1,15 @@
+## Checking SSE4.2 instruction supported
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: Populate Variable via Shell Command
+    shell: cat /proc/cpuinfo | grep -i sse4_2 | wc -l
+    register: sse
+    ignore_errors: True
+
+  - name: SSE Instruction Check
+    shell: echo "WARNING Streaming SIMD Extensions 4.2 is not supported on this node"
+    register: output
+    failed_when: sse < 1

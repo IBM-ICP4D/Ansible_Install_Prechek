@@ -1,0 +1,23 @@
+## Checking size of root partition
+---
+- hosts: all
+  gather_facts: yes
+
+  vars_files:
+    - ../../vars/globals.yml
+
+  vars:
+    rootsize: "{{ root_size }}"
+
+  tasks:
+  - name: Populate Variable via Shell Command
+    shell: df -k -BG "/" | awk '{print($4 " " $6)}' | grep "/" | cut -d' ' -f1 | sed 's/G//g'
+    register: actual_root_size
+    ignore_errors: True
+  #- debug:
+       #msg: "Current root size is {{actual_root_size.stdout}}"
+
+  - name: Root Partition Size Check
+    shell: echo "WARNING size of root partition is smaller than {{rootsize}}G, This should be fine as long as {{docker_storage}}, /var/lib/etcd, /var/log. /tmp are mounted on separate partitions"
+    register: output
+    failed_when: (actual_root_size.stdout | int) < (rootsize | int)

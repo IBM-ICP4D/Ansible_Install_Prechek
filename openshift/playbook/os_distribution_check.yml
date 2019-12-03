@@ -1,0 +1,10 @@
+## Checking OS Distribution
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: OS Distribution Check
+    shell: echo "ERROR The OS must be RedHat"
+    register: output
+    failed_when: ansible_facts['os_family'] != "RedHat"

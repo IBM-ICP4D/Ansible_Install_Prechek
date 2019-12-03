@@ -1,0 +1,10 @@
+## Checking Processor Type
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: Processor Type Check
+    shell: echo "ERROR Processor type must be x86_64"
+    register: output
+    failed_when: ansible_architecture != "x86_64"

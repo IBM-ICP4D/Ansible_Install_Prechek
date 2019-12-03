@@ -1,0 +1,22 @@
+## Checking Kernel Semaphore Setting
+---
+- hosts: all
+  gather_facts: yes
+  
+  tasks:
+  - name: Populate target value
+    shell: echo "250 1024000 32 4096"
+    register: targetsemaphore
+    ignore_errors: True
+
+  - name: Populate current value
+    shell: cat /proc/sys/kernel/sem|sed -e "s/[[:space:]]\+/ /g"
+    register: currentsemaphore
+    ignore_errors: True
+  - debug:
+       msg: "Current semaphore settings is {{currentsemaphore.stdout}}, required {{targetsemaphore.stdout}}"
+
+  - name: Check semaphore settings
+    shell: echo "ERROR Current semaphore setting is not compatible with Cloud Pak for Data"
+    register: output
+    failed_when: "currentsemaphore.stdout != targetsemaphore.stdout"

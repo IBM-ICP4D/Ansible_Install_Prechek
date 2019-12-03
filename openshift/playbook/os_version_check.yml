@@ -1,0 +1,10 @@
+## Checking OS Version
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: OS Distribution Check
+    shell: echo "ERROR The OS version must be RedHat 7.6"
+    register: output
+    failed_when: ansible_facts['distribution_version'] != "7.6"

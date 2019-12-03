@@ -1,0 +1,26 @@
+## Checking SELinux Setting
+---
+- hosts: all
+
+  become: yes
+
+  tasks:
+  - name: Create autorelable file
+    shell: touch /.autorelabel
+
+  - name: Populate target value
+    shell: echo "Enforcing"
+    register: target_selinux
+    ignore_errors: True
+
+  - name: Populate current value
+    command: getenforce
+    register: current_selinux
+    ignore_errors: True
+  - debug:
+       msg: "Current SELinux settings is {{current_selinux.stdout}}, required {{target_selinux.stdout}}"
+
+  - name: Check SELinux settings
+    shell: echo "ERROR Current SELinux setting is not compatible with Cloud Pak for Data"
+    register: output
+    failed_when: "current_selinux.stdout != target_selinux.stdout"

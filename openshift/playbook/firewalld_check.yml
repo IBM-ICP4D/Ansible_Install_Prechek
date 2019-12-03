@@ -1,0 +1,17 @@
+## Checking Firewalld status
+---
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: Populate Variable via Shell Command
+    shell: systemctl status firewalld | grep -E 'Active.*dead' | wc -l
+    register: firewalld
+    ignore_errors: True
+  #- debug:
+       #msg: "Current firewall settings is {{firewalld.stdout}}"
+
+  - name: Firewalld Status Check
+    shell: echo "ERROR Firewalld is not disabled"
+    register: output
+    failed_when: firewalld.stdout != "1"
