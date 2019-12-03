@@ -1,9 +1,9 @@
 [cluster]
-169.62.100.214 private_ip=10.87.103.68 name=master-03 type=master ansible_ssh_user=root ansible_ssh_pass=
-169.62.100.211 private_ip=10.87.103.123 name=master-02 type=master ansible_ssh_user=root ansible_ssh_pass=
-169.62.100.207 private_ip=10.87.103.121 name=master-01 type=master ansible_ssh_user=root ansible_ssh_pass=
-169.62.100.153 private_ip=10.87.103.117 name=worker-01 type=worker ansible_ssh_user=root ansible_ssh_pass=
-169.62.100.150 private_ip=10.87.103.108 name=worker-03 type=worker ansible_ssh_user=root ansible_ssh_pass=
-169.62.100.138 private_ip=10.87.103.96 name=worker-02 type=worker ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.68 name=master-03 type=master ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.123 name=master-02 type=master ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.121 name=master-01 type=master ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.117 name=worker-01 type=worker ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.108 name=worker-03 type=worker ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.96 name=worker-02 type=worker ansible_ssh_user=root ansible_ssh_pass=
 [loadbalancer]
-169.62.100.213 private_ip=10.87.103.66 name=loadbalancer-01 type=proxy ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.66 name=loadbalancer-01 type=proxy ansible_ssh_user=root ansible_ssh_pass=
