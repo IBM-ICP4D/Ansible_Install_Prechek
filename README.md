@@ -23,7 +23,7 @@ Example:
 # Validation
 | |Check |	Fix |
 |----------------------------------------------|----------|----------
-|OpenShift Validation
+|**OpenShift Validation** |
 |OS Distribution	| X | | 	
 |OS Version | X |	| 	
 |Processor type | X |
