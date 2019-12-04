@@ -35,7 +35,7 @@ Example:
 |Firewall disabled	| X | X	|
 |Hostname in Lowercase Characters | X |	 	|
 |Size of Root Partition | X |  |
-|Disk Latency || |
+|Disk Latency | X | |
 |Disk Throughput || |
 |Docker Folder Defined	|| |
 |Container Storage Size || |
