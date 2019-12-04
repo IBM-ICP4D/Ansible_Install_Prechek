@@ -36,7 +36,7 @@ Example:
 |Hostname in Lowercase Characters | X |	 	|
 |Size of Root Partition | X |  |
 |Disk Latency | X | |
-|Disk Throughput || |
+|Disk Throughput | X | |
 |Docker Folder Defined	|| |
 |Container Storage Size || |
 |Connectivity to IBM Artifactory Server || |	
