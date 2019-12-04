@@ -303,6 +303,26 @@ function check_rootsize(){
     fi
 }
 
+function check_disklatency(){
+    output=""
+    echo "Checking Disk latency" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/disklatency_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Disk latency test failed. By copying 512 kB, the time must be shorter than 60s, recommended to be shorter than 10s." result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
 #######################
 ### Start Pre-check ###
 #######################
@@ -403,5 +423,6 @@ if [[ $OCP ]]; then
     #check_fix_clocksync
     #check_fix_firewalld
     #check_hostname
-    check_rootsize
+    #check_rootsize
+    check_disklatency
 fi
