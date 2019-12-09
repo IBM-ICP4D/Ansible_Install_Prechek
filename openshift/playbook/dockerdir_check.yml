@@ -1,0 +1,19 @@
+## Checking Docker folder defined
+---
+- hosts: all
+
+  become: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: Check directory exists
+    stat:
+       path: "{{ docker_storage }}"
+    register: docker_dir
+
+  - name: Validate Directory
+    shell: echo "ERROR {{ docker_storage }} does not exists. Please setup the directory and rerun the tests"
+    register: output
+    failed_when: docker_dir.stat.isdir is not defined and not docker_dir.stat.isdir
