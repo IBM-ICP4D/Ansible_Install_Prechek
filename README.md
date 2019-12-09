@@ -37,7 +37,7 @@ Example:
 |Size of Root Partition | X |  |
 |Disk Latency | X | |
 |Disk Throughput | X | |
-|Docker Folder Defined	|| |
+|Docker Folder Defined	| X | |
 |Container Storage Size || |
 |Connectivity to IBM Artifactory Server || |	
 |Connectivity to Redhat Artifactory Server	||	|
