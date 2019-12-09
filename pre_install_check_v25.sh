@@ -305,11 +305,51 @@ function check_rootsize(){
 
 function check_disklatency(){
     output=""
-    echo "Checking Disk latency" | tee -a ${OUTPUT}
+    echo "Checking Disk Latency" | tee -a ${OUTPUT}
     ansible-playbook -i hosts_openshift openshift/playbook/disklatency_check.yml > ${ANSIBLEOUT}
 
     if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
         log "ERROR: Disk latency test failed. By copying 512 kB, the time must be shorter than 60s, recommended to be shorter than 10s." result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
+function check_diskthroughput(){
+    output=""
+    echo "Checking Disk Throughput" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/diskthroughput_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Disk throughput test failed. By copying 1.1 GB, the time must be shorter than 35s, recommended to be shorter than 5s" result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
+function check_dockerdir(){
+    output=""
+    echo "Checking Docker folder defined" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/dockerdir_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Directory "$CRIODOCKERINSTALLPATH" does not exists. Please setup the directory and rerun the tests" result
         cat ${ANSIBLEOUT} >> ${OUTPUT}
         ERROR=1
     else
@@ -425,4 +465,6 @@ if [[ $OCP ]]; then
     #check_hostname
     #check_rootsize
     check_disklatency
+    check_diskthroughput
+    check_dockerdir
 fi
