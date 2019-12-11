@@ -38,7 +38,7 @@ Example:
 |Disk Latency | X | |
 |Disk Throughput | X | |
 |Docker Folder Defined	| X | |
-|Container Storage Size || |
+|Container Storage Size | x | |
 |Connectivity to IBM Artifactory Server || |	
 |Connectivity to Redhat Artifactory Server	||	|
 |XFS FTYPE for Overlay2 Drivers || |
