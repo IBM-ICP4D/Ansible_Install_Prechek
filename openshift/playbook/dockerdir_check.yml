@@ -13,7 +13,17 @@
        path: "{{ docker_storage }}"
     register: docker_dir
 
-  - name: Validate Directory
+  - name: Validate docker directory
     shell: echo "ERROR {{ docker_storage }} does not exists. Please setup the directory and rerun the tests"
     register: output
     failed_when: docker_dir.stat.isdir is not defined and not docker_dir.stat.isdir
+
+  - name: Populate Variable via Shell Command
+    shell: df -h $(df -P /var/lib/docker | tail -1 | cut -d' ' -f 1) --output=avail | tail -1 | sed 's/G//g'
+    register: dockersize
+    ignore_errors: True
+    
+  - name: Validate docker directory size
+    shell: echo "ERROR Current {{ docker_storage }} size is {{ dockersize.stdout_lines }}. The minimum recommended is 200GB"
+    register: output
+    failed_when: (dockersize.stdout_lines|int) < 200
