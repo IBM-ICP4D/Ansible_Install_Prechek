@@ -39,9 +39,9 @@ Example:
 |Disk Throughput | X | |
 |Docker Folder Defined	| X | - |
 |Container Storage Size | X | |
+|XFS FTYPE for Overlay2 Drivers || |
 |Connectivity to IBM Artifactory Server || |	
 |Connectivity to Redhat Artifactory Server	||	|
-|XFS FTYPE for Overlay2 Drivers || |
 |Default Gateway || |
 |DNS Configuration	|| | 
 |Resolving hostname via DNS ||	|
