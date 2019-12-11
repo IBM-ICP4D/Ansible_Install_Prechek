@@ -363,6 +363,27 @@ function check_dockerdir(){
     fi
 }
 
+function check_dockerdir_size(){
+    output=""
+    echo "Checking Docker container storage size" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/dockerdir_size_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Docker target filesystem does not have enough storage. The minimum recommended is 200GB " result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
+
 #######################
 ### Start Pre-check ###
 #######################
@@ -464,7 +485,8 @@ if [[ $OCP ]]; then
     #check_fix_firewalld
     #check_hostname
     #check_rootsize
-    check_disklatency
-    check_diskthroughput
+    #check_disklatency
+    #check_diskthroughput
     check_dockerdir
+    check_dockerdir_size
 fi

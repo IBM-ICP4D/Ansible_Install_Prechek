@@ -23,3 +23,4 @@ redhat_pool_ids: <pool-id>
 ##System Requirement
 root_size: 50
 latenct_rate: 60
+docker_storage_size: 200
