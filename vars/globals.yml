@@ -24,3 +24,5 @@ redhat_pool_ids: <pool-id>
 root_size: 50
 latenct_rate: 60
 docker_storage_size: 200
+ibm_artifactory: cp.icr.io
+redhat_artifactory: registry.redhat.io

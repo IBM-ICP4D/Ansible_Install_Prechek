@@ -404,6 +404,46 @@ function check_dockerdir_type(){
     fi
 }
 
+function check_ibmartifactory(){
+    output=""
+    echo "checking connectivity to IBM Artifactory servere" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/ibmregistry_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "WARNING: cp.icr.io is not reachable. Enabling proxy might fix this issue." result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
+function check_redhatartifactory(){
+    output=""
+    echo "checking connectivity to RedHat Artifactory servere" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/ibmregistry_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "WARNING: registry.redhat.io is not reachable. Enabling proxy might fix this issue." result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
 #######################
 ### Start Pre-check ###
 #######################
@@ -510,4 +550,6 @@ if [[ $OCP ]]; then
     check_dockerdir
     check_dockerdir_size
     check_dockerdir_type
+    check_ibmartifactory
+    check_redhatartifactory
 fi
