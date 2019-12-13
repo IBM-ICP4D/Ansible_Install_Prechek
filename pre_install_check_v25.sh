@@ -20,8 +20,9 @@ function usage(){
     echo ""
     echo "Example: "
     echo "./pre_install_check_v25.sh --install=cpd --installpath=/ibm/cpd --ocuser=ocadmin"
-    echo "./pre_install_check_v25.sh --install=ocp --installpath=/ibm/cpd --ocuser=ocadmin --ocpassword=icp4dAdmin"
-    echo "./pre_install_check_v25.sh --install=ocp --installpath=/ibm/cpd --fix"
+    echo "./pre_install_check_v25.sh --install=cpd --installpath=/ibm/cpd --ocuser=ocadmin --ocpassword=icp4dAdmin"
+    echo "./pre_install_check_v25.sh --install=ocp"
+    echo "./pre_install_check_v25.sh --install=ocp --fix"
 }
 
 function helper(){
@@ -383,6 +384,25 @@ function check_dockerdir_size(){
     fi
 }
 
+function check_dockerdir_type(){
+    output=""
+    echo "Checking XFS FSTYPE for docker storage" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/dockerdir_size_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Docker target filesystem must be formatted with ftype=1. Please reformat or move the docker location" result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
 
 #######################
 ### Start Pre-check ###
@@ -417,7 +437,7 @@ LOCALTEST=0
 
 
 #input check
-if [[  $# -lt 3  ]]; then
+if [[  $# -lt 1  ]]; then
     usage
     exit 1
 else
@@ -489,4 +509,5 @@ if [[ $OCP ]]; then
     #check_diskthroughput
     check_dockerdir
     check_dockerdir_size
+    check_dockerdir_type
 fi
