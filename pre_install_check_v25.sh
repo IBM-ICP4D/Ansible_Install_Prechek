@@ -387,7 +387,7 @@ function check_dockerdir_size(){
 function check_dockerdir_type(){
     output=""
     echo "Checking XFS FSTYPE for docker storage" | tee -a ${OUTPUT}
-    ansible-playbook -i hosts_openshift openshift/playbook/dockerdir_size_check.yml > ${ANSIBLEOUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/dockerdir_type_check.yml > ${ANSIBLEOUT}
 
     if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
         log "ERROR: Docker target filesystem must be formatted with ftype=1. Please reformat or move the docker location" result
