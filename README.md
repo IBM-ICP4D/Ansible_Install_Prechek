@@ -41,8 +41,8 @@ Example:
 |Docker Folder Defined	| X | - |
 |Container Storage Size | X | |
 |XFS FTYPE for Overlay2 Drivers | X | |
-|Connectivity to IBM Artifactory Server || |	
-|Connectivity to Redhat Artifactory Server	||	|
+|Connectivity to IBM Artifactory Server | X | |	
+|Connectivity to Redhat Artifactory Server	| X |	|
 |Default Gateway || |
 |DNS Configuration	|| | 
 |Resolving hostname via DNS ||	|
