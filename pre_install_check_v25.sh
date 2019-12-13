@@ -444,6 +444,26 @@ function check_redhatartifactory(){
     fi
 }
 
+function check_gateway(){
+    output=""
+    echo "Checking Default Gateway" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/gateway_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: default gateway is not setup " result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
 #######################
 ### Start Pre-check ###
 #######################
@@ -552,4 +572,5 @@ if [[ $OCP ]]; then
     check_dockerdir_type
     check_ibmartifactory
     check_redhatartifactory
+    check_gateway
 fi

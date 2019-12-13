@@ -1,11 +1,11 @@
-## Checking Clocksync Setting
+## Checking Default Gateway
 ---
 - hosts: all
 
   become: yes
 
   tasks:
-  - name: Check closksync
-    shell: ntpstat
+  - name: Check default gateway
+    shell: ip route | grep default
     register: output
     failed_when: "output.rc != 0"
