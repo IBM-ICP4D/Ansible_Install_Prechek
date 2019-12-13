@@ -16,8 +16,9 @@ Arguments:
 
 Example: 
 ./pre_install_check_v25.sh --install=cpd --installpath=/ibm/cpd --ocuser=ocadmin
-./pre_install_check_v25.sh --install=ocp --installpath=/ibm/cpd --ocuser=ocadmin --ocpassword=icp4dAdmin
-./pre_install_check_v25.sh --install=ocp --installpath=/ibm/cpd --fix
+./pre_install_check_v25.sh --install=cpd --installpath=/ibm/cpd --ocuser=ocadmin --ocpassword=icp4dAdmin
+./pre_install_check_v25.sh --install=ocp
+./pre_install_check_v25.sh --install=ocp --fix
 ```
 
 # Validation
@@ -39,7 +40,7 @@ Example:
 |Disk Throughput | X | |
 |Docker Folder Defined	| X | - |
 |Container Storage Size | X | |
-|XFS FTYPE for Overlay2 Drivers || |
+|XFS FTYPE for Overlay2 Drivers | X | |
 |Connectivity to IBM Artifactory Server || |	
 |Connectivity to Redhat Artifactory Server	||	|
 |Default Gateway || |
