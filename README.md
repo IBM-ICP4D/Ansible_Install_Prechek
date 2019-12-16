@@ -47,6 +47,6 @@ Example:
 |Default Gateway | X | |
 |DNS Configuration	| X | | 
 |Resolving hostname via DNS | X |	|
-|IPV4 IP Forwarding Set to Enable ||	|	
+|IPV4 IP Forwarding Set to Enable | X |	X |	
 |CPU RAM Size || |
 		
