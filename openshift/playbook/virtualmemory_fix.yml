@@ -1,0 +1,20 @@
+## Fix Kernel Virtual Memory Setting
+---
+- hosts: all
+  become: yes
+ 
+  #vars_files:
+  # - ../vars/globals.yml
+
+  tasks:
+  - name: vm.max 
+    shell: echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+
+  - name: sysctl
+    shell: sysctl -p
+
+  - name: status
+    shell: cat /etc/sysctl.conf
+    register: output
+
+  - debug: var=output.stdout_lines

@@ -172,6 +172,30 @@ function check_fix_semaphore(){
     fi
 }
 
+function check_fix_virtualmemory(){
+    output=""
+    echo "Checking kernel virtual memory" | tee -a ${OUTPUT}
+    if [[ ${FIX} -eq 1 ]]; then
+        ansible-playbook -i hosts_openshift openshift/playbook/virtualmemory_fix.yml > ${ANSIBLEOUT}
+    else
+        ansible-playbook -i hosts_openshift openshift/playbook/virtualmemory_check.yml > ${ANSIBLEOUT}
+    fi
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Current virtual memory setting is not compatible with Cloud Pak for Data" result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
 function check_cronjob(){
     output=""
     echo "Checking pre-existing cronjob" | tee -a ${OUTPUT}
@@ -464,6 +488,46 @@ function check_gateway(){
     fi
 }
 
+function check_dnsconfiguration(){
+    output=""
+    echo "Checking DNS Configuration" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/dnsconfig_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: DNS is not properly setup. Could not find a proper nameserver in /etc/resolv.conf " result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
+function check_dnsresolve(){
+    output=""
+    echo "Checking hostname can resolve via  DNS" | tee -a ${OUTPUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/dnsresolve_check.yml > ${ANSIBLEOUT}
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: hostname) is not resolved via the DNS. Check /etc/resolve.conf " result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
 #######################
 ### Start Pre-check ###
 #######################
@@ -559,6 +623,7 @@ if [[ $OCP ]]; then
     #check_processor
     #check_sse
     #check_fix_semaphore
+    check_fix_virtualmemory
     #check_cronjob
     #check_fix_selinux
     #check_fix_clocksync
@@ -567,10 +632,12 @@ if [[ $OCP ]]; then
     #check_rootsize
     #check_disklatency
     #check_diskthroughput
-    check_dockerdir
-    check_dockerdir_size
-    check_dockerdir_type
-    check_ibmartifactory
-    check_redhatartifactory
-    check_gateway
+    #check_dockerdir
+    #check_dockerdir_size
+    #check_dockerdir_type
+    #check_ibmartifactory
+    #check_redhatartifactory
+    #check_gateway
+    check_dnsconfiguration
+    check_dnsresolve
 fi

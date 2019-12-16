@@ -1,0 +1,11 @@
+## Check resolving hostname via  DNS
+---
+- hosts: all
+
+  become: yes
+
+  tasks:
+  - name: Check host name resolve
+    shell: host $(hostname)
+    register: output
+    failed_when: "output.rc != 0"

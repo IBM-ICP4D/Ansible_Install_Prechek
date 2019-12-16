@@ -1,0 +1,22 @@
+## Checking Kernel Virtual Memory Setting
+---
+- hosts: all
+  gather_facts: yes
+  
+  tasks:
+  - name: Populate target value
+    shell: echo "262144"
+    register: targetvm
+    ignore_errors: True
+
+  - name: Populate current value
+    shell: sysctl vm.max_map_count | awk -F "=" '{print $2}'
+    register: currentvm
+    ignore_errors: True
+  - debug:
+       msg: "Current virtual memory settings is {{currentvm.stdout}}, required {{targetvm.stdout}}"
+
+  - name: Check virtual memory settings
+    shell: echo "ERROR Current virtual memory setting is not compatible with Cloud Pak for Data"
+    register: output
+    failed_when: "(currentvm.stdout|int) != (targetvm.stdout|int)"
