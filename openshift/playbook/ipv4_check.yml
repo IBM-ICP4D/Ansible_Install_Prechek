@@ -1,0 +1,22 @@
+## Checking IPv4 IP Forwarding is set to enabled
+---
+- hosts: all
+  gather_facts: yes
+  
+  tasks:
+  - name: Populate target value
+    shell: echo "1"
+    register: targetipv4
+    ignore_errors: True
+
+  - name: Populate current value
+    shell: sysctl net.ipv4.ip_forward | awk -F "=" '{print $2}'
+    register: currentipv4
+    ignore_errors: True
+  - debug:
+       msg: "Current IPv4 IP forwarding set to {{currentipv4.stdout}}, required {{targetipv4.stdout}}"
+
+  - name: Check IPv4 IP Forwarding
+    shell: echo "ERROR Current IPv4 IP forwarding set is not compatible with Cloud Pak for Data"
+    register: output
+    failed_when: "(currentipv4.stdout|int) != (targetipv4.stdout|int)"

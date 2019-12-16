@@ -1,0 +1,20 @@
+## Fix IPv4 IP Forwarding Setting
+---
+- hosts: all
+  become: yes
+ 
+  #vars_files:
+  # - ../vars/globals.yml
+
+  tasks:
+  - name: net.ipv4.ip_forward
+    shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+
+  - name: sysctl
+    shell: sysctl -p
+
+  - name: status
+    shell: cat /etc/sysctl.conf
+    register: output
+
+  - debug: var=output.stdout_lines

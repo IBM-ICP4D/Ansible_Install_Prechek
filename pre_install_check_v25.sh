@@ -196,6 +196,30 @@ function check_fix_virtualmemory(){
     fi
 }
 
+function check_fix_ipv4(){
+    output=""
+    echo "Checking IPv4 IP Forwarding is set to enabled" | tee -a ${OUTPUT}
+    if [[ ${FIX} -eq 1 ]]; then
+        ansible-playbook -i hosts_openshift openshift/playbook/ipv4_fix.yml > ${ANSIBLEOUT}
+    else
+        ansible-playbook -i hosts_openshift openshift/playbook/ipv4_check.yml > ${ANSIBLEOUT}
+    fi
+
+    if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
+        log "ERROR: Current IPv4 IP forwarding is not compatible with Cloud Pak for Data requiremwnt (net.ipv4.ip_forward = 1)" result
+        cat ${ANSIBLEOUT} >> ${OUTPUT}
+        ERROR=1
+    else
+        log "[Passed]" result
+    fi
+    LOCALTEST=1
+    output+="$result"
+
+    if [[ ${LOCALTEST} -eq 1 ]]; then
+        printout "$output"
+    fi
+}
+
 function check_cronjob(){
     output=""
     echo "Checking pre-existing cronjob" | tee -a ${OUTPUT}
@@ -623,7 +647,8 @@ if [[ $OCP ]]; then
     #check_processor
     #check_sse
     #check_fix_semaphore
-    check_fix_virtualmemory
+    #check_fix_virtualmemory
+    check_fix_ipv4
     #check_cronjob
     #check_fix_selinux
     #check_fix_clocksync
