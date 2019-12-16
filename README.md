@@ -30,6 +30,7 @@ Example:
 |Processor type | X |
 |SSE 4.2 Instruction Supported | X | 	|
 |Kernel Semaphore Parameter | X | X |
+|Kernel Virtual Memory Parameter | X | X |
 |Pre-existing Cron Job | X | 	 |
 |SeLinux enforcing | X | X |
 |Clock Sync | X |	X	|
@@ -44,8 +45,8 @@ Example:
 |Connectivity to IBM Artifactory Server | X | |	
 |Connectivity to Redhat Artifactory Server	| X |	|
 |Default Gateway | X | |
-|DNS Configuration	|| | 
-|Resolving hostname via DNS ||	|
+|DNS Configuration	| X | | 
+|Resolving hostname via DNS | X |	|
 |IPV4 IP Forwarding Set to Enable ||	|	
 |CPU RAM Size || |
 		
