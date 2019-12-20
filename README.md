@@ -1,6 +1,20 @@
 # Ansible_Install_Prechek
 Check all nodes meet requirements for OpenShift and CPD installation
 
+# Setup
+1. Clone the git repo
+```
+	git clone https://github.com/IBM-ICP4D/Ansible_Install_Prechek.git
+```
+2. Go to the Ansible_Install_Prechek directory 
+```
+	cd Ansible_Install_Prechek
+```
+3. Update the inventory file "hosts_openshift" according to the cluster
+```
+	vi hosts_openshift
+```
+
 # Usage
 ```
 This script checks if all nodes meet requirements for OpenShift and CPD installation.
