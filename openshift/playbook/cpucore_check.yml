@@ -1,0 +1,39 @@
+## Checking System CPU Cores
+---
+- hosts: master
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: System CPU Core Check for master
+    shell: echo "ERROR CPU cores are {{ ansible_processor_cores }}, while requirement are {{ master_cpucore }} for master node"
+    register: mastercores
+    failed_when: ansible_facts['processor_cores'] < (master_cpucore) 
+
+
+- hosts: worker
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: System CPU Core Check for worker
+    shell: echo "ERROR CPU cores are {{ ansible_processor_cores }}, while requirement are {{ worker_cpucore }} for worker node"
+    register: workercores
+    failed_when: ansible_facts['processor_cores'] < (worker_cpucore) 
+
+
+- hosts: loadbalancer
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: System CPU Core Check for load balancer
+    shell: echo "ERROR CPU cores are {{ ansible_processor_cores }}, while requirement are {{ loadbalancer_cpucore }} for load balancer node"
+    register: workercores
+    failed_when: ansible_facts['processor_cores'] < (loadbalancer_cpucore) 

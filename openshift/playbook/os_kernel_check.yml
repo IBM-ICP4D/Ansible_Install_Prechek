@@ -1,0 +1,35 @@
+## Checking OS Version
+---
+- hosts: all
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  vars:
+    kernelversion: "{{ kernel_version }}"
+    patchlevel: "{{ kernel_patch_level }}"
+
+  tasks:
+  - name: Populate Variable via Shell Command Kernel
+    shell: uname -r | awk -F"-" '{print $1}'
+    register: kernel
+    ignore_errors: True
+
+  - debug:
+       msg: "Current OS kernel version is {{ kernel.stdout }} and expected {{ kernelversion }} or higher"
+
+  - name: OS Kerner Version Check
+    shell: echo "ERROR The OS kernel version must be equal or higher to {{ kernelversion }}"
+    register: output
+    failed_when: (kernel.stdout | int) < (kernelversion | int)
+
+  - name: Populate Variable via Shell Command Patch
+    shell: uname -r | awk -F"-" '{print $2}'|awk -F"." '{print $1}'
+    register: patchversion
+    ignore_errors: True
+
+  - name: OS Patch Version Check
+    shell: echo "ERROR The OS patch version must be equal or higher to {{ patchlevel }}"
+    register: output
+    failed_when: (patchversion.stdout | int) < (patchlevel | int)

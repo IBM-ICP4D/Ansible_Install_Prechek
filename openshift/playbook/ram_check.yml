@@ -1,0 +1,39 @@
+## Checking System RAM
+---
+- hosts: master
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: System RAM Check for master
+    shell: echo "ERROR RAM is {{ ansible_memtotal_mb }}, while requirement are {{ master_ram }} for master node"
+    register: masterram
+    failed_when: ansible_facts['memtotal_mb'] < (master_ram) 
+
+
+- hosts: worker
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: System RAM Check for worker
+    shell: echo "ERROR RAM is {{ ansible_memtotal_mb }}, while requirement are {{ worker_ram }} for worker node"
+    register: workerram
+    failed_when: ansible_facts['memtotal_mb'] < (worker_ram) 
+
+
+- hosts: loadbalancer
+  gather_facts: yes
+
+  vars_files:
+   - ../../vars/globals.yml
+
+  tasks:
+  - name: System RAM Check for load balancer
+    shell: echo "ERROR RAM is {{ ansible_memtotal_mb }}, while requirement are {{ loadbalancer_ram }} for load balancer node"
+    register: workerram
+    failed_when: ansible_facts['memtotal_mb'] < (loadbalancer_ram) 

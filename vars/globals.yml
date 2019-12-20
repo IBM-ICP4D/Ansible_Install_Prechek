@@ -21,7 +21,19 @@ redhat_password: <password>
 redhat_pool_ids: <pool-id>
 
 ##System Requirement
+kernel_version: 4.10.0
+#kernel_version: 3.10.0
+kernel_patch_level: 1062
 root_size: 50
+loadbalancer_cpucore: 4
+master_cpucore: 8
+bastion_cpucore: 8
+worker_cpucore: 16
+# RAM size in MB
+loadbalancer_ram: 8192
+bastion_ram: 16384
+master_ram: 32768
+worker_ram: 65536
 latenct_rate: 60
 docker_storage_size: 200
 ibm_artifactory: cp.icr.io
