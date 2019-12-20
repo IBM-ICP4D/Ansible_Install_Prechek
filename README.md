@@ -3,20 +3,13 @@ Check all nodes meet requirements for OpenShift and CPD installation
 
 # Usage
 ```
-./pre_install_check_v25.sh
 This script checks if all nodes meet requirements for OpenShift and CPD installation.
 Arguments: 
---install=[ocp|cpd]                         To specify installation type
---installpath=[installation file location]  To specify installation directory
---ocuser=[openshift user]                   To specify Openshift user used for installation
---ocpassword=[password]                     To specify password for Openshift user
-                                            Set OCPASSWORD environment variable to avoid --ocpassword command line argument
---fix                                       To address any issue in the cluster 
---help                                      To see help 
+    --install=[ocp|cpd]                         To specify installation type
+    --fix                                       To address any issue in the cluster 
+    --help                                      To see help 
 
 Example: 
-./pre_install_check_v25.sh --install=cpd --installpath=/ibm/cpd --ocuser=ocadmin
-./pre_install_check_v25.sh --install=cpd --installpath=/ibm/cpd --ocuser=ocadmin --ocpassword=icp4dAdmin
 ./pre_install_check_v25.sh --install=ocp
 ./pre_install_check_v25.sh --install=ocp --fix
 ```
@@ -48,5 +41,5 @@ Example:
 |DNS Configuration	| X | | 
 |Resolving hostname via DNS | X |	|
 |IPV4 IP Forwarding Set to Enable | X |	X |	
-|CPU RAM Size || |
+|CPU RAM Size | X | |
 		
