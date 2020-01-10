@@ -91,7 +91,7 @@ function check_os_distribution(){
 function check_os_version(){
     output=""
     echo -e "\nChecking OS Virsion" | tee -a ${OUTPUT}
-    ansible-playbook -i hosts_openshift openshift/playbook/os_distribution_check.yml > ${ANSIBLEOUT}
+    ansible-playbook -i hosts_openshift openshift/playbook/os_version_check.yml > ${ANSIBLEOUT}
 
     if [[ `egrep 'unreachable=[1-9]|failed=[1-9]' ${ANSIBLEOUT}` ]]; then
         log "ERROR: The OS must be RedHat 7.6 or hgher" result
