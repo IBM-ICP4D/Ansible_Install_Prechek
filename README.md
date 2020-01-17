@@ -33,7 +33,8 @@ Example:
 |----------------------------------------------|----------|----------
 |**OpenShift Validation** |
 |OS Distribution	| X | | 	
-|OS Version | X |	| 	
+|OS Version | X |	| 
+|OS Kernel Patch | X |	| 
 |Processor type | X |
 |SSE 4.2 Instruction Supported | X | 	|
 |Kernel Semaphore Parameter | X | X |
