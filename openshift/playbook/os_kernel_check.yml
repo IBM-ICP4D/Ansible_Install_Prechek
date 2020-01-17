@@ -1,4 +1,4 @@
-## Checking OS Version
+## Checking kernel OS patch
 ---
 - hosts: all
   gather_facts: yes
@@ -7,29 +7,19 @@
    - ../../vars/globals.yml
 
   vars:
-    kernelversion: "{{ kernel_version }}"
-    patchlevel: "{{ kernel_patch_level }}"
+    kernelpatchlevel: "{{ kernel_patch_level }}"
 
   tasks:
-  - name: Populate Variable via Shell Command Kernel
-    shell: uname -r | awk -F"-" '{print $1}'
-    register: kernel
-    ignore_errors: True
-
-  - debug:
-       msg: "Current OS kernel version is {{ kernel.stdout }} and expected {{ kernelversion }} or higher"
-
-  - name: OS Kerner Version Check
-    shell: echo "ERROR The OS kernel version must be equal or higher to {{ kernelversion }}"
-    register: output
-    failed_when: (kernel.stdout | int) < (kernelversion | int)
-
   - name: Populate Variable via Shell Command Patch
-    shell: uname -r | awk -F"-" '{print $2}'|awk -F"." '{print $1}'
+    #shell: uname -r
+    shell: p1=`uname -r | awk -F"-" '{print $1}'`; p2=`uname -r | awk -F"-" '{print $2}'|awk -F"." '{print $1}'`;echo "$p1-$p2"
     register: patchversion
     ignore_errors: True
 
+  - debug:
+       msg: "Current OS patch level is {{ patchversion.stdout }}"
+
   - name: OS Patch Version Check
-    shell: echo "ERROR The OS patch version must be equal or higher to {{ patchlevel }}"
+    shell: echo "ERROR The OS patch version must be {{ kernelpatchlevel }}"
     register: output
-    failed_when: (patchversion.stdout | int) < (patchlevel | int)
+    failed_when: (patchversion.stdout not in kernelpatchlevel)

@@ -21,9 +21,8 @@ redhat_password: <password>
 redhat_pool_ids: <pool-id>
 
 ##System Requirement
-kernel_version: 4.10.0
-#kernel_version: 3.10.0
-kernel_patch_level: 1062
+suported_os_version: "7.6, 7.7"
+kernel_patch_level: "3.10.0-957.27.2, 3.10.0-1062"
 root_size: 50
 loadbalancer_cpucore: 4
 master_cpucore: 8

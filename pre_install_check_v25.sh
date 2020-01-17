@@ -718,7 +718,7 @@ if [[ ${OCP} ]]; then
     else                         ## Run all checks
         check_os_distribution
         check_os_version
-        #check_kernel_version # <-- Not ready yet
+        check_kernel_version 
         check_processor
         check_sse
         check_fix_semaphore
