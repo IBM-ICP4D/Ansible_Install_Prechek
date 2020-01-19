@@ -35,13 +35,13 @@ Example:
 |OS Distribution	| RedHat | X |   | 
 |OS Version | 7.6, 7.7| X |	| 
 |OS Kernel Patch | 3.10.0-957, 3.10.0-1062| X |	|
-|Processor type | | X |
-|SSE 4.2 Instruction Supported | | X | 	|
-|Kernel Semaphore Parameter | | X | X |
-|Kernel Virtual Memory Parameter | | X | X |
-|Pre-existing Cron Job | | X | 	 |
-|SeLinux enforcing | | X | X |
-|Clock Sync | | X |	X	|
+|Processor type | x86_64 | X | |
+|SSE 4.2 Instruction Supported | SSE4_2 | X | 	|
+|Kernel Semaphore Parameter | "kernel.sem = 250 1024000 32 4096" | X | X |
+|Kernel Virtual Memory Parameter | "vm.max_map_count=262144" | X | X |
+|Pre-existing Cron Job | Stop existing cron jobs | X | 	 |
+|SeLinux enforcing | Enforcing | X | X |
+|Clock Sync | Synchronize computer system clock on all nodes | X |	X	|
 |Firewall disabled	| | X | X	|
 |Hostname in Lowercase Characters | | X |	 	|
 |Size of Root Partition | | X |  |
