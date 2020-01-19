@@ -43,18 +43,18 @@ Example:
 |SeLinux enforcing | Enforcing | X | X |
 |Clock Sync | Synchronize computer system clock on all nodes | X |	X	|
 |Firewall disabled	| Firewalld needs turn off. Will turn it on later. | X | X	|
-|Hostname in Lowercase Characters | | X |	 	|
+|Hostname in Lowercase Characters | Hostname must be all lowercase | X |	 	|
 |Size of Root Partition | 50 Gb | X |  |
-|Disk Latency | | X | |
-|Disk Throughput | | X | |
-|Docker Folder Defined	| | X | - |
-|Container Storage Size | | X | |
-|XFS FTYPE for Overlay2 Drivers | | X | |
-|Connectivity to IBM Artifactory Server | | X | |	
-|Connectivity to Redhat Artifactory Server	| | X |	|
-|Default Gateway | | X | |
-|DNS Configuration	| | X | | 
-|Resolving hostname via DNS | | X |	|
+|Disk Latency | 50 Kb/Sec | X | |
+|Disk Throughput | 1 Gb/5 Sec| X | |
+|Docker Folder Defined	| /var/lib/docker exists | X | - |
+|Docker Container Storage Size | 200 Gb | X | |
+|XFS FTYPE for Overlay2 Drivers | Must be XFS type filesystem | X | |
+|Connectivity to IBM Artifactory Server | Not mandatory| X | |	
+|Connectivity to Redhat Artifactory Server	| registry.redhat.io | X |	|
+|Default Gateway | Route for default gateway exists | X | |
+|DNS Configuration	| DNS must be enabled | X | | 
+|Resolving hostname via DNS | Hostname resolution enabledn| X |	|
 |IPV4 IP Forwarding Set to Enable | | X |	X |	
 |CPU RAM Size | | X | |
 
