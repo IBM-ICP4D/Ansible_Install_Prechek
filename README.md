@@ -42,9 +42,9 @@ Example:
 |Pre-existing Cron Job | Stop existing cron jobs | X | 	 |
 |SeLinux enforcing | Enforcing | X | X |
 |Clock Sync | Synchronize computer system clock on all nodes | X |	X	|
-|Firewall disabled	| | X | X	|
+|Firewall disabled	| Firewalld needs turn off. Will turn it on later. | X | X	|
 |Hostname in Lowercase Characters | | X |	 	|
-|Size of Root Partition | | X |  |
+|Size of Root Partition | 50 Gb | X |  |
 |Disk Latency | | X | |
 |Disk Throughput | | X | |
 |Docker Folder Defined	| | X | - |
