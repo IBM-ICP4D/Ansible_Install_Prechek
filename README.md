@@ -29,32 +29,32 @@ Example:
 ```
 
 # Validation
-| |Requirements |Check |	Fix |
-|----------------------------------------------|----------|----------
+| | Requirements | Check |	Fix |
+|----------------------------------------------|----------------------------------------------|----------|----------
 |**OpenShift Validation** |
-|OS Distribution	| X | | 	
-|OS Version | X |	| 
-|OS Kernel Patch | X |	| 
-|Processor type | X |
-|SSE 4.2 Instruction Supported | X | 	|
-|Kernel Semaphore Parameter | X | X |
-|Kernel Virtual Memory Parameter | X | X |
-|Pre-existing Cron Job | X | 	 |
-|SeLinux enforcing | X | X |
-|Clock Sync | X |	X	|
-|Firewall disabled	| X | X	|
-|Hostname in Lowercase Characters | X |	 	|
-|Size of Root Partition | X |  |
-|Disk Latency | X | |
-|Disk Throughput | X | |
-|Docker Folder Defined	| X | - |
-|Container Storage Size | X | |
-|XFS FTYPE for Overlay2 Drivers | X | |
-|Connectivity to IBM Artifactory Server | X | |	
-|Connectivity to Redhat Artifactory Server	| X |	|
-|Default Gateway | X | |
-|DNS Configuration	| X | | 
-|Resolving hostname via DNS | X |	|
-|IPV4 IP Forwarding Set to Enable | X |	X |	
-|CPU RAM Size | X | |
-		
+|OS Distribution	| RedHat | X |   | 
+|OS Version | 7.6, 7.7| X |	| 
+|OS Kernel Patch | 3.10.0-957, 3.10.0-1062| X |	|
+|Processor type | | X |
+|SSE 4.2 Instruction Supported | | X | 	|
+|Kernel Semaphore Parameter | | X | X |
+|Kernel Virtual Memory Parameter | | X | X |
+|Pre-existing Cron Job | | X | 	 |
+|SeLinux enforcing | | X | X |
+|Clock Sync | | X |	X	|
+|Firewall disabled	| | X | X	|
+|Hostname in Lowercase Characters | | X |	 	|
+|Size of Root Partition | | X |  |
+|Disk Latency | | X | |
+|Disk Throughput | | X | |
+|Docker Folder Defined	| | X | - |
+|Container Storage Size | | X | |
+|XFS FTYPE for Overlay2 Drivers | | X | |
+|Connectivity to IBM Artifactory Server | | X | |	
+|Connectivity to Redhat Artifactory Server	| | X |	|
+|Default Gateway | | X | |
+|DNS Configuration	| | X | | 
+|Resolving hostname via DNS | | X |	|
+|IPV4 IP Forwarding Set to Enable | | X |	X |	
+|CPU RAM Size | | X | |
+
