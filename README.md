@@ -29,7 +29,7 @@ Example:
 ```
 
 # Validation
-| |Check |	Fix |
+| |Requirements |Check |	Fix |
 |----------------------------------------------|----------|----------
 |**OpenShift Validation** |
 |OS Distribution	| X | | 	
