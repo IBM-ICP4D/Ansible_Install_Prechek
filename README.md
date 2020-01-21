@@ -14,6 +14,20 @@ Check all nodes meet requirements for OpenShift and CPD installation
 ```
 	vi hosts_openshift
 ```
+	Example of hosts_openshift file:
+```
+[master]
+9.62.100.* private_ip=10.87.103.68 name=master-03 type=master ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.123 name=master-02 type=master ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.121 name=master-01 type=master ansible_ssh_user=root ansible_ssh_pass=
+[worker]
+9.62.100.* private_ip=10.87.103.117 name=worker-01 type=worker ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.108 name=worker-03 type=worker ansible_ssh_user=root ansible_ssh_pass=
+9.62.100.* private_ip=10.87.103.96 name=worker-02 type=worker ansible_ssh_user=root ansible_ssh_pass=
+[loadbalancer]
+9.62.100.* private_ip=10.87.103.66 name=loadbalancer-01 type=proxy ansible_ssh_user=root ansible_ssh_pass=
+	
+```
 
 # Usage
 ```
